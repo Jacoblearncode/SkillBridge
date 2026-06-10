@@ -249,8 +249,14 @@
             <article>
                 <section class="section page-hero" aria-label="contact">
                     <div class="container">
-                        <h1 class="headline-lg">Contact SkillBridge</h1>
-                        <p class="section-text body-lg">
+                        <h1 class="headline-lg" data-reveal>
+                            Contact SkillBridge
+                        </h1>
+                        <p
+                            class="section-text body-lg"
+                            data-reveal
+                            data-reveal-delay="0.08s"
+                        >
                             Need support, want to partner, or planning a campus
                             chapter? Send us a note and we will get back soon.
                         </p>
@@ -259,7 +265,13 @@
 
                 <section class="section" aria-label="contact form">
                     <div class="container">
-                        <form class="contact-wrap" id="contactForm" novalidate>
+                        <form
+                            class="contact-wrap"
+                            id="contactForm"
+                            novalidate
+                            data-reveal
+                            data-reveal-delay="0.14s"
+                        >
                             <div class="contact-fields">
                                 <label class="contact-label" for="contactName"
                                     >Your name</label
@@ -376,6 +388,32 @@
                 </div>
             </div>
         </footer>
+
+        <div class="mobile-contact-cta" aria-label="quick contact options">
+            <a
+                href="mailto:jacobjayenpillai@gmail.com"
+                class="mobile-contact-link"
+            >
+                <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                <span class="label-md">Email</span>
+            </a>
+            <a
+                href="https://wa.me/60166128291"
+                class="mobile-contact-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <ion-icon
+                    name="logo-whatsapp"
+                    aria-hidden="true"
+                ></ion-icon>
+                <span class="label-md">WhatsApp</span>
+            </a>
+            <a href="./contact.html" class="mobile-contact-link">
+                <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                <span class="label-md">Contact</span>
+            </a>
+        </div>
 
         <a
             href="#top"

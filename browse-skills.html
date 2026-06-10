@@ -285,14 +285,24 @@
             <article>
                 <section class="section page-hero" aria-label="browse skills">
                     <div class="container">
-                        <h1 class="headline-lg">Browse Nearby Skills</h1>
-                        <p class="section-text body-lg">
+                        <h1 class="headline-lg" data-reveal>
+                            Browse Nearby Skills
+                        </h1>
+                        <p
+                            class="section-text body-lg"
+                            data-reveal
+                            data-reveal-delay="0.08s"
+                        >
                             Discover trusted people around you for quick tasks,
                             project work, and skill swaps with transparent rates
                             and completion history.
                         </p>
 
-                        <div class="search-wrap">
+                        <div
+                            class="search-wrap"
+                            data-reveal
+                            data-reveal-delay="0.14s"
+                        >
                             <input
                                 class="search-input"
                                 id="skillSearchInput"
@@ -302,7 +312,12 @@
                             />
                         </div>
 
-                        <div class="chip-wrap" id="skillFilterChips">
+                        <div
+                            class="chip-wrap"
+                            id="skillFilterChips"
+                            data-reveal
+                            data-reveal-delay="0.2s"
+                        >
                             <button
                                 type="button"
                                 class="skill-chip active"
@@ -379,7 +394,7 @@
 
                 <section class="section" aria-label="skills list">
                     <div class="container">
-                        <div class="results-bar">
+                        <div class="results-bar" data-reveal>
                             <p id="resultsCount" class="label-md">
                                 Loading skills...
                             </p>
@@ -388,9 +403,20 @@
                             </p>
                         </div>
 
-                        <div class="skill-grid" id="skillGrid"></div>
+                        <div
+                            class="skill-grid"
+                            id="skillGrid"
+                            data-reveal
+                            data-reveal-delay="0.08s"
+                        ></div>
 
-                        <div id="emptyState" class="empty-state" hidden>
+                        <div
+                            id="emptyState"
+                            class="empty-state"
+                            hidden
+                            data-reveal
+                            data-reveal-delay="0.14s"
+                        >
                             No matches found. Try another keyword or switch
                             category.
                         </div>
@@ -408,6 +434,32 @@
                 </div>
             </div>
         </footer>
+
+        <div class="mobile-contact-cta" aria-label="quick contact options">
+            <a
+                href="mailto:jacobjayenpillai@gmail.com"
+                class="mobile-contact-link"
+            >
+                <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                <span class="label-md">Email</span>
+            </a>
+            <a
+                href="https://wa.me/60166128291"
+                class="mobile-contact-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <ion-icon
+                    name="logo-whatsapp"
+                    aria-hidden="true"
+                ></ion-icon>
+                <span class="label-md">WhatsApp</span>
+            </a>
+            <a href="./contact.html" class="mobile-contact-link">
+                <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                <span class="label-md">Contact</span>
+            </a>
+        </div>
 
         <a
             href="#top"
