@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>SkillBridge - Community</title>
+        <meta name="title" content="SkillBridge - Community" />
+        <meta
+            name="description"
+            content="Connect with your local community through SkillBridge circles and events."
+        />
+
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <style>
+            .page-hero {
+                --section-padding: 220px 50px;
+                text-align: center;
+            }
+
+            .page-hero .section-text {
+                color: var(--alice-blue-2);
+                opacity: 0.86;
+                max-width: 700px;
+                margin: 14px auto 0;
+            }
+
+            .community-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 22px;
+            }
+
+            .community-card {
+                padding: 20px;
+                border-radius: var(--radius-12);
+                border: 1px solid var(--white_a16);
+                background: linear-gradient(
+                    145deg,
+                    hsla(220, 35%, 21%, 0.6),
+                    hsla(224, 43%, 14%, 0.45)
+                );
+                box-shadow:
+                    inset 0 1px 0 hsla(0, 0%, 100%, 0.2),
+                    0 14px 28px hsla(220, 58%, 5%, 0.3);
+            }
+
+            .community-card .title-sm {
+                margin-block-end: 10px;
+            }
+
+            .community-card p {
+                color: var(--alice-blue-2);
+                opacity: 0.86;
+                margin-block-end: 16px;
+            }
+
+            @media (min-width: 768px) {
+                .page-hero {
+                    --section-padding: 252px 64px;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="top">
+        <header class="header" data-header>
+            <div class="container">
+                <a href="./index.html">
+                    <img
+                        src="./assets/images/logo-small.svg"
+                        width="40"
+                        height="40"
+                        alt="SkillBridge home"
+                        class="logo-small"
+                    />
+                    <img
+                        src="./assets/images/logo.svg"
+                        width="126"
+                        height="28"
+                        alt="SkillBridge home"
+                        class="logo"
+                    />
+                </a>
+
+                <nav class="navbar" data-navbar>
+                    <ul class="navbar-list">
+                        <li>
+                            <a
+                                href="./index.html"
+                                class="navbar-link label-lg link:hover"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./browse-skills.html"
+                                class="navbar-link label-lg link:hover"
+                                >Browse Skills</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./community.html"
+                                class="navbar-link label-lg link:hover"
+                                aria-current="page"
+                                >Community</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./about-us.html"
+                                class="navbar-link label-lg link:hover"
+                                >About Us</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./contact.html"
+                                class="navbar-link label-lg link:hover"
+                                >Contact</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="header-action">
+                    <button
+                        class="btn-icon primary"
+                        aria-label="Post a Task"
+                        onclick="openTaskModal()"
+                    >
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </button>
+
+                    <button
+                        class="btn-icon profil-btn"
+                        aria-label="SkillBridge account: Jane Doe"
+                    >
+                        <img
+                            src="./assets/images/profile.jpg"
+                            width="50"
+                            height="50"
+                            alt="Jane Doe"
+                            class="img-cover"
+                        />
+                    </button>
+
+                    <button
+                        class="nav-toggle-btn"
+                        aria-label="menu toggle"
+                        data-nav-toggler
+                    >
+                        <ion-icon
+                            name="menu-outline"
+                            aria-hidden="true"
+                            class="default-icon"
+                        ></ion-icon>
+                        <ion-icon
+                            name="close-outline"
+                            aria-hidden="true"
+                            class="active-icon"
+                        ></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <article>
+                <section class="section page-hero" aria-label="community">
+                    <div class="container">
+                        <h1 class="headline-lg">Community Hub</h1>
+                        <p class="section-text body-lg">
+                            Join local circles, exchange skills, and build
+                            trusted neighborhoods where people solve real
+                            problems together.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="community blocks">
+                    <div class="container">
+                        <div class="community-grid">
+                            <article class="community-card">
+                                <ion-icon
+                                    name="swap-horizontal-outline"
+                                    aria-hidden="true"
+                                    style="
+                                        font-size: 2.4rem;
+                                        color: var(--blue-violet);
+                                        margin-block-end: 10px;
+                                        display: block;
+                                    "
+                                ></ion-icon>
+                                <h2 class="title-sm">Weekly Skill Swap</h2>
+                                <p>
+                                    Trade one hour of your expertise for one
+                                    hour of help from another member.
+                                </p>
+                                <p
+                                    style="
+                                        font-size: 1.3rem;
+                                        color: var(--cadet-grey);
+                                        margin-block-end: 14px;
+                                    "
+                                >
+                                    142 active members
+                                </p>
+                                <a href="./contact.html" class="btn"
+                                    >Join This Week</a
+                                >
+                            </article>
+
+                            <article class="community-card">
+                                <ion-icon
+                                    name="location-outline"
+                                    aria-hidden="true"
+                                    style="
+                                        font-size: 2.4rem;
+                                        color: var(--blue-violet);
+                                        margin-block-end: 10px;
+                                        display: block;
+                                    "
+                                ></ion-icon>
+                                <h2 class="title-sm">
+                                    Neighborhood Problem Board
+                                </h2>
+                                <p>
+                                    A shared board for urgent local tasks:
+                                    printer fixes, tutoring, and same-day
+                                    assistance.
+                                </p>
+                                <p
+                                    style="
+                                        font-size: 1.3rem;
+                                        color: var(--cadet-grey);
+                                        margin-block-end: 14px;
+                                    "
+                                >
+                                    89 open requests
+                                </p>
+                                <a href="./browse-skills.html" class="btn"
+                                    >Explore Requests</a
+                                >
+                            </article>
+
+                            <article class="community-card">
+                                <ion-icon
+                                    name="people-outline"
+                                    aria-hidden="true"
+                                    style="
+                                        font-size: 2.4rem;
+                                        color: var(--blue-violet);
+                                        margin-block-end: 10px;
+                                        display: block;
+                                    "
+                                ></ion-icon>
+                                <h2 class="title-sm">Mentor Circles</h2>
+                                <p>
+                                    Connect students and early professionals
+                                    with mentors for portfolio, interview, and
+                                    career growth.
+                                </p>
+                                <p
+                                    style="
+                                        font-size: 1.3rem;
+                                        color: var(--cadet-grey);
+                                        margin-block-end: 14px;
+                                    "
+                                >
+                                    34 mentors available
+                                </p>
+                                <a href="./contact.html" class="btn"
+                                    >Become a Mentor</a
+                                >
+                            </article>
+
+                            <article class="community-card">
+                                <ion-icon
+                                    name="school-outline"
+                                    aria-hidden="true"
+                                    style="
+                                        font-size: 2.4rem;
+                                        color: var(--blue-violet);
+                                        margin-block-end: 10px;
+                                        display: block;
+                                    "
+                                ></ion-icon>
+                                <h2 class="title-sm">Campus Chapters</h2>
+                                <p>
+                                    Start a SkillBridge chapter in your school
+                                    or college and coordinate local
+                                    micro-projects.
+                                </p>
+                                <p
+                                    style="
+                                        font-size: 1.3rem;
+                                        color: var(--cadet-grey);
+                                        margin-block-end: 14px;
+                                    "
+                                >
+                                    12 chapters launched
+                                </p>
+                                <a href="./contact.html" class="btn"
+                                    >Start a Chapter</a
+                                >
+                            </article>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="body-md text-center copyright">
+                        &copy; 2026 SkillBridge Idea MVP.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <a
+            href="#top"
+            class="back-to-top btn-icon"
+            aria-label="back to top"
+            data-back-top-btn
+        >
+            <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+        </a>
+
+        <div class="body-bg-shape"></div>
+
+        <script src="./assets/js/script.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>

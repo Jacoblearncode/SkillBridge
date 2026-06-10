@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>SkillBridge - About Us</title>
+        <meta name="title" content="SkillBridge - About Us" />
+        <meta
+            name="description"
+            content="Learn the mission behind SkillBridge and how we empower local problem-solving."
+        />
+
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <style>
+            .page-hero {
+                --section-padding: 220px 42px;
+                text-align: center;
+            }
+
+            .page-hero .section-text {
+                color: var(--alice-blue-2);
+                opacity: 0.85;
+                max-width: 760px;
+                margin: 14px auto 0;
+            }
+
+            .about-panel {
+                border: 1px solid var(--white_a16);
+                border-radius: var(--radius-12);
+                background: linear-gradient(
+                    145deg,
+                    hsla(220, 35%, 21%, 0.6),
+                    hsla(224, 43%, 14%, 0.45)
+                );
+                box-shadow:
+                    inset 0 1px 0 hsla(0, 0%, 100%, 0.2),
+                    0 14px 28px hsla(220, 58%, 5%, 0.3);
+                padding: 26px;
+            }
+
+            .about-panel + .about-panel {
+                margin-top: 20px;
+            }
+
+            .about-panel p {
+                color: var(--alice-blue-2);
+                opacity: 0.9;
+            }
+
+            @media (min-width: 768px) {
+                .page-hero {
+                    --section-padding: 252px 52px;
+                }
+
+                .about-layout {
+                    display: grid;
+                    grid-template-columns: 1.2fr 0.8fr;
+                    gap: 20px;
+                }
+
+                .about-layout .about-panel + .about-panel {
+                    margin-top: 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="top">
+        <header class="header" data-header>
+            <div class="container">
+                <a href="./index.html">
+                    <img
+                        src="./assets/images/logo-small.svg"
+                        width="40"
+                        height="40"
+                        alt="SkillBridge home"
+                        class="logo-small"
+                    />
+                    <img
+                        src="./assets/images/logo.svg"
+                        width="126"
+                        height="28"
+                        alt="SkillBridge home"
+                        class="logo"
+                    />
+                </a>
+
+                <nav class="navbar" data-navbar>
+                    <ul class="navbar-list">
+                        <li>
+                            <a
+                                href="./index.html"
+                                class="navbar-link label-lg link:hover"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./browse-skills.html"
+                                class="navbar-link label-lg link:hover"
+                                >Browse Skills</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./community.html"
+                                class="navbar-link label-lg link:hover"
+                                >Community</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./about-us.html"
+                                class="navbar-link label-lg link:hover"
+                                aria-current="page"
+                                >About Us</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./contact.html"
+                                class="navbar-link label-lg link:hover"
+                                >Contact</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="header-action">
+                    <button
+                        class="btn-icon primary"
+                        aria-label="Post a Task"
+                        onclick="openTaskModal()"
+                    >
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </button>
+
+                    <button
+                        class="btn-icon profil-btn"
+                        aria-label="SkillBridge account: Jane Doe"
+                    >
+                        <img
+                            src="./assets/images/profile.jpg"
+                            width="50"
+                            height="50"
+                            alt="Jane Doe"
+                            class="img-cover"
+                        />
+                    </button>
+
+                    <button
+                        class="nav-toggle-btn"
+                        aria-label="menu toggle"
+                        data-nav-toggler
+                    >
+                        <ion-icon
+                            name="menu-outline"
+                            aria-hidden="true"
+                            class="default-icon"
+                        ></ion-icon>
+                        <ion-icon
+                            name="close-outline"
+                            aria-hidden="true"
+                            class="active-icon"
+                        ></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <article>
+                <section
+                    class="section page-hero"
+                    aria-label="about skillbridge"
+                >
+                    <div class="container">
+                        <h1 class="headline-lg">About SkillBridge</h1>
+                        <p class="section-text body-lg">
+                            SkillBridge is a local micro-task network built to
+                            connect people who need help with people who have
+                            the exact skill to solve it quickly and fairly.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="about details">
+                    <div class="container about-layout">
+                        <article class="about-panel">
+                            <h2 class="title-md">Our Mission</h2>
+                            <p>
+                                Make practical help accessible in every
+                                neighborhood by turning hidden skills into
+                                opportunities. We believe that real progress
+                                starts when local people can help each other
+                                with trust, speed, and clear expectations.
+                            </p>
+                        </article>
+
+                        <article class="about-panel">
+                            <h2 class="title-md">What We Value</h2>
+                            <p>
+                                Transparency, fair exchange, and community-first
+                                growth. Every request should feel simple to
+                                post, safe to accept, and rewarding to complete.
+                            </p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="who we serve">
+                    <div class="container">
+                        <h2
+                            class="headline-md section-title text-center"
+                            style="margin-bottom: 32px"
+                        >
+                            Who We Serve
+                        </h2>
+                        <div
+                            class="about-layout"
+                            style="
+                                grid-template-columns: repeat(
+                                    auto-fit,
+                                    minmax(220px, 1fr)
+                                );
+                                gap: 20px;
+                                display: grid;
+                            "
+                        >
+                            <article class="about-panel">
+                                <h3
+                                    class="title-sm"
+                                    style="margin-bottom: 10px"
+                                >
+                                    Working Adults
+                                </h3>
+                                <p>
+                                    Need quick help with small but
+                                    time-sensitive tasks — document translation,
+                                    spreadsheet fixes, or presentation polish —
+                                    without the overhead of hiring an agency.
+                                </p>
+                            </article>
+
+                            <article class="about-panel">
+                                <h3
+                                    class="title-sm"
+                                    style="margin-bottom: 10px"
+                                >
+                                    Freelancers & Fresh Graduates
+                                </h3>
+                                <p>
+                                    Earn income, build a portfolio, and gain
+                                    real-world experience by offering skills on
+                                    a flexible basis — no full-time commitment
+                                    required.
+                                </p>
+                            </article>
+
+                            <article class="about-panel">
+                                <h3
+                                    class="title-sm"
+                                    style="margin-bottom: 10px"
+                                >
+                                    Small Business Owners
+                                </h3>
+                                <p>
+                                    Access skilled individuals fast for one-off
+                                    needs — logo updates, data entry, IT setup —
+                                    without the cost of hiring full-time staff.
+                                </p>
+                            </article>
+
+                            <article class="about-panel">
+                                <h3
+                                    class="title-sm"
+                                    style="margin-bottom: 10px"
+                                >
+                                    Job Seekers
+                                </h3>
+                                <p>
+                                    Offer skills to earn while searching, and
+                                    access peer support to improve CVs,
+                                    portfolios, and interview readiness through
+                                    real community help.
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="sdg alignment">
+                    <div class="container">
+                        <h2
+                            class="headline-md section-title text-center"
+                            style="margin-bottom: 10px"
+                        >
+                            Why It Matters
+                        </h2>
+                        <p
+                            class="body-md text-center section-text"
+                            style="
+                                color: var(--alice-blue-2);
+                                opacity: 0.85;
+                                margin-bottom: 32px;
+                            "
+                        >
+                            SkillBridge is designed around four UN Sustainable
+                            Development Goals to ensure it creates lasting,
+                            inclusive impact.
+                        </p>
+                        <div
+                            style="
+                                display: grid;
+                                gap: 16px;
+                                grid-template-columns: repeat(
+                                    auto-fit,
+                                    minmax(240px, 1fr)
+                                );
+                            "
+                        >
+                            <article class="about-panel">
+                                <p
+                                    class="label-md"
+                                    style="
+                                        color: var(--blue-violet);
+                                        font-weight: var(--fw-700);
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    SDG 4 — Quality Education
+                                </p>
+                                <h3 class="title-sm" style="margin-bottom: 8px">
+                                    Informal, practical skill-sharing
+                                </h3>
+                                <p>
+                                    Enables on-demand learning outside
+                                    classrooms, complementing formal education
+                                    with real-world skill access for anyone,
+                                    anywhere.
+                                </p>
+                            </article>
+
+                            <article class="about-panel">
+                                <p
+                                    class="label-md"
+                                    style="
+                                        color: var(--blue-violet);
+                                        font-weight: var(--fw-700);
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    SDG 8 — Decent Work
+                                </p>
+                                <h3 class="title-sm" style="margin-bottom: 8px">
+                                    Flexible micro-income opportunities
+                                </h3>
+                                <p>
+                                    Creates grassroots economic participation
+                                    for freelancers and graduates without
+                                    requiring full-time employment or formal
+                                    credentials.
+                                </p>
+                            </article>
+
+                            <article class="about-panel">
+                                <p
+                                    class="label-md"
+                                    style="
+                                        color: var(--blue-violet);
+                                        font-weight: var(--fw-700);
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    SDG 10 — Reduced Inequalities
+                                </p>
+                                <h3 class="title-sm" style="margin-bottom: 8px">
+                                    Help for every income group
+                                </h3>
+                                <p>
+                                    Flexible compensation — paid, skill-swap,
+                                    reward, or free — removes financial barriers
+                                    that often prevent people from accessing
+                                    skilled help.
+                                </p>
+                            </article>
+
+                            <article class="about-panel">
+                                <p
+                                    class="label-md"
+                                    style="
+                                        color: var(--blue-violet);
+                                        font-weight: var(--fw-700);
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    SDG 17 — Partnerships
+                                </p>
+                                <h3 class="title-sm" style="margin-bottom: 8px">
+                                    Community-driven networks
+                                </h3>
+                                <p>
+                                    Builds organic partnerships between
+                                    individuals, freelancers, and small
+                                    businesses that strengthen local economies
+                                    and social trust.
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="body-md text-center copyright">
+                        &copy; 2026 SkillBridge Idea MVP.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <a
+            href="#top"
+            class="back-to-top btn-icon"
+            aria-label="back to top"
+            data-back-top-btn
+        >
+            <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+        </a>
+
+        <div class="body-bg-shape"></div>
+
+        <script src="./assets/js/script.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>

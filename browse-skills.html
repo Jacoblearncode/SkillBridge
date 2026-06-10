@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>SkillBridge - Browse Skills</title>
+        <meta name="title" content="SkillBridge - Browse Skills" />
+        <meta
+            name="description"
+            content="Browse local skills and connect with nearby helpers."
+        />
+
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <style>
+            .page-hero {
+                --section-padding: 220px 56px;
+                text-align: center;
+            }
+
+            .page-hero .section-text {
+                color: var(--alice-blue-2);
+                opacity: 0.85;
+                max-width: 700px;
+                margin: 14px auto 0;
+            }
+
+            .chip-wrap {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                margin-block: 28px 0;
+            }
+
+            .skill-chip {
+                padding: 10px 16px;
+                border-radius: var(--radius-pill);
+                border: 1px solid var(--white_a16);
+                color: var(--white);
+                background: linear-gradient(
+                    145deg,
+                    hsla(220, 35%, 21%, 0.64),
+                    hsla(224, 43%, 14%, 0.5)
+                );
+                box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.2);
+                font-weight: var(--fw-600);
+                cursor: pointer;
+                transition: var(--transition-1);
+            }
+
+            .skill-chip:is(:hover, :focus-visible),
+            .skill-chip.active {
+                border-color: var(--blue-violet);
+                background: linear-gradient(
+                    145deg,
+                    hsla(262, 83%, 58%, 0.42),
+                    hsla(0, 72%, 51%, 0.3)
+                );
+                transform: translateY(-2px);
+            }
+
+            .search-wrap {
+                margin: 22px auto 0;
+                max-width: 560px;
+                display: flex;
+                gap: 10px;
+                padding: 10px;
+                border-radius: var(--radius-pill);
+                border: 1px solid var(--white_a16);
+                background: linear-gradient(
+                    145deg,
+                    hsla(220, 35%, 21%, 0.58),
+                    hsla(224, 43%, 14%, 0.45)
+                );
+                box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.18);
+            }
+
+            .search-input {
+                width: 100%;
+                border-radius: var(--radius-pill);
+                padding: 10px 14px;
+                color: var(--white);
+                border: 1px solid transparent;
+                background: hsla(220, 34%, 12%, 0.4);
+                outline: none;
+            }
+
+            .search-input::placeholder {
+                color: hsla(215, 30%, 92%, 0.66);
+            }
+
+            .search-input:focus {
+                border-color: hsla(262, 83%, 58%, 0.7);
+            }
+
+            .results-bar {
+                margin: 0 auto 16px;
+                max-width: 1120px;
+                color: var(--alice-blue-2);
+                opacity: 0.86;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .empty-state {
+                text-align: center;
+                color: var(--alice-blue-2);
+                opacity: 0.88;
+                border: 1px dashed var(--white_a16);
+                border-radius: var(--radius-12);
+                padding: 26px;
+            }
+
+            .skill-grid {
+                display: grid;
+                gap: 22px;
+                grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            }
+
+            .skill-card {
+                padding: 20px;
+                border-radius: var(--radius-12);
+                border: 1px solid var(--white_a16);
+                background: linear-gradient(
+                    145deg,
+                    hsla(220, 35%, 21%, 0.6),
+                    hsla(224, 43%, 14%, 0.45)
+                );
+                box-shadow:
+                    inset 0 1px 0 hsla(0, 0%, 100%, 0.2),
+                    0 14px 28px hsla(220, 58%, 5%, 0.3);
+            }
+
+            .skill-card .title-sm {
+                margin-bottom: 8px;
+            }
+
+            .skill-meta {
+                color: var(--alice-blue-2);
+                opacity: 0.85;
+                margin-bottom: 14px;
+            }
+
+            .skill-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 14px;
+            }
+
+            .skill-tag {
+                border: 1px solid var(--white_a16);
+                color: var(--alice-blue-2);
+                font-size: 1.3rem;
+                border-radius: var(--radius-pill);
+                padding: 4px 10px;
+                opacity: 0.95;
+            }
+
+            @media (min-width: 768px) {
+                .page-hero {
+                    --section-padding: 252px 64px;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="top">
+        <header class="header" data-header>
+            <div class="container">
+                <a href="./index.html">
+                    <img
+                        src="./assets/images/logo-small.svg"
+                        width="40"
+                        height="40"
+                        alt="SkillBridge home"
+                        class="logo-small"
+                    />
+                    <img
+                        src="./assets/images/logo.svg"
+                        width="126"
+                        height="28"
+                        alt="SkillBridge home"
+                        class="logo"
+                    />
+                </a>
+
+                <nav class="navbar" data-navbar>
+                    <ul class="navbar-list">
+                        <li>
+                            <a
+                                href="./index.html"
+                                class="navbar-link label-lg link:hover"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./browse-skills.html"
+                                class="navbar-link label-lg link:hover"
+                                aria-current="page"
+                                >Browse Skills</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./community.html"
+                                class="navbar-link label-lg link:hover"
+                                >Community</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./about-us.html"
+                                class="navbar-link label-lg link:hover"
+                                >About Us</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./contact.html"
+                                class="navbar-link label-lg link:hover"
+                                >Contact</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="header-action">
+                    <button
+                        class="btn-icon primary"
+                        aria-label="Post a Task"
+                        onclick="openTaskModal()"
+                    >
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </button>
+
+                    <button
+                        class="btn-icon profil-btn"
+                        aria-label="SkillBridge account: Jane Doe"
+                    >
+                        <img
+                            src="./assets/images/profile.jpg"
+                            width="50"
+                            height="50"
+                            alt="Jane Doe"
+                            class="img-cover"
+                        />
+                    </button>
+
+                    <button
+                        class="nav-toggle-btn"
+                        aria-label="menu toggle"
+                        data-nav-toggler
+                    >
+                        <ion-icon
+                            name="menu-outline"
+                            aria-hidden="true"
+                            class="default-icon"
+                        ></ion-icon>
+                        <ion-icon
+                            name="close-outline"
+                            aria-hidden="true"
+                            class="active-icon"
+                        ></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <article>
+                <section class="section page-hero" aria-label="browse skills">
+                    <div class="container">
+                        <h1 class="headline-lg">Browse Nearby Skills</h1>
+                        <p class="section-text body-lg">
+                            Discover trusted people around you for quick tasks,
+                            project work, and skill swaps with transparent rates
+                            and completion history.
+                        </p>
+
+                        <div class="search-wrap">
+                            <input
+                                class="search-input"
+                                id="skillSearchInput"
+                                type="search"
+                                placeholder="Search skills, tags, or helper names..."
+                                aria-label="Search skills"
+                            />
+                        </div>
+
+                        <div class="chip-wrap" id="skillFilterChips">
+                            <button
+                                type="button"
+                                class="skill-chip active"
+                                data-filter="all"
+                            >
+                                All
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Design"
+                            >
+                                Design
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Coding"
+                            >
+                                Coding
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Tutoring"
+                            >
+                                Tutoring
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Video Editing"
+                            >
+                                Video Editing
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Handyman"
+                            >
+                                Handyman
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Career Help"
+                            >
+                                Career Help
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Errands"
+                            >
+                                Errands
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Pet Care"
+                            >
+                                Pet Care
+                            </button>
+                            <button
+                                type="button"
+                                class="skill-chip"
+                                data-filter="Photography"
+                            >
+                                Photography
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="skills list">
+                    <div class="container">
+                        <div class="results-bar">
+                            <p id="resultsCount" class="label-md">
+                                Loading skills...
+                            </p>
+                            <p id="activeFilterLabel" class="label-md">
+                                Filter: All
+                            </p>
+                        </div>
+
+                        <div class="skill-grid" id="skillGrid"></div>
+
+                        <div id="emptyState" class="empty-state" hidden>
+                            No matches found. Try another keyword or switch
+                            category.
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="body-md text-center copyright">
+                        &copy; 2026 SkillBridge Idea MVP.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <a
+            href="#top"
+            class="back-to-top btn-icon"
+            aria-label="back to top"
+            data-back-top-btn
+        >
+            <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+        </a>
+
+        <div class="body-bg-shape"></div>
+
+        <script src="./assets/js/script.js"></script>
+        <script src="./assets/js/browse-skills.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>

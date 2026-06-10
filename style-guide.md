@@ -103,3 +103,6 @@ Ionicon
 --transition-1: 0.25s ease;
 --transition-2: 0.5s ease;
 ```
+
+## Deploying New Domain
+Replace relative URLs in the JSON-LD (like index.html and logo.svg) with absolute URLs (for example, https://yourdomain.com/ and https://yourdomain.com/assets/images/logo.svg) for best SEO reliability.

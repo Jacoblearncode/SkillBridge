@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>SkillBridge - Contact</title>
+        <meta name="title" content="SkillBridge - Contact" />
+        <meta
+            name="description"
+            content="Get in touch with the SkillBridge team."
+        />
+
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <style>
+            .page-hero {
+                --section-padding: 220px 36px;
+                text-align: center;
+            }
+
+            .page-hero .section-text {
+                color: var(--alice-blue-2);
+                opacity: 0.85;
+                max-width: 720px;
+                margin: 14px auto 0;
+            }
+
+            .contact-wrap {
+                max-width: 760px;
+                margin: 0 auto;
+                border: 1px solid var(--white_a16);
+                border-radius: var(--radius-12);
+                background: linear-gradient(
+                    145deg,
+                    hsla(220, 35%, 21%, 0.62),
+                    hsla(224, 43%, 14%, 0.48)
+                );
+                box-shadow:
+                    inset 0 1px 0 hsla(0, 0%, 100%, 0.22),
+                    0 14px 28px hsla(220, 58%, 5%, 0.3);
+                padding: 22px;
+            }
+
+            .contact-fields {
+                display: grid;
+                gap: 12px;
+            }
+
+            .contact-label {
+                font-size: 1.4rem;
+                color: var(--alice-blue-2);
+                opacity: 0.9;
+                margin-bottom: -4px;
+            }
+
+            .contact-field {
+                width: 100%;
+                padding: 12px 14px;
+                border-radius: var(--radius-8);
+                border: 1px solid var(--white_a16);
+                background: hsla(220, 34%, 12%, 0.54);
+                color: var(--white);
+            }
+
+            .contact-field::placeholder {
+                color: hsla(215, 30%, 92%, 0.72);
+            }
+
+            .contact-field:focus {
+                outline: 2px solid hsla(262, 83%, 58%, 0.45);
+                outline-offset: 1px;
+                border-color: hsla(262, 83%, 58%, 0.7);
+            }
+
+            .contact-field option {
+                color: var(--white);
+                background: var(--oxford-blue-2);
+            }
+
+            .contact-form-meta {
+                margin-top: 14px;
+                display: grid;
+                gap: 6px;
+                color: var(--alice-blue-2);
+                opacity: 0.88;
+                font-size: 1.45rem;
+            }
+
+            .contact-status {
+                min-height: 22px;
+                margin-top: 10px;
+                font-size: 1.45rem;
+                font-weight: var(--fw-500);
+            }
+
+            .contact-status.is-loading {
+                color: var(--gainsboro);
+            }
+
+            .contact-status.is-success {
+                color: hsl(146, 56%, 63%);
+            }
+
+            .contact-status.is-error {
+                color: hsl(0, 88%, 74%);
+            }
+
+            .contact-submit[disabled] {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+
+            .contact-honeypot {
+                position: absolute;
+                left: -9999px;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+            }
+
+            .contact-note {
+                margin-top: 12px;
+                color: var(--alice-blue-2);
+                opacity: 0.84;
+                text-align: center;
+            }
+
+            @media (min-width: 768px) {
+                .page-hero {
+                    --section-padding: 252px 48px;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="top">
+        <header class="header" data-header>
+            <div class="container">
+                <a href="./index.html">
+                    <img
+                        src="./assets/images/logo-small.svg"
+                        width="40"
+                        height="40"
+                        alt="SkillBridge home"
+                        class="logo-small"
+                    />
+                    <img
+                        src="./assets/images/logo.svg"
+                        width="126"
+                        height="28"
+                        alt="SkillBridge home"
+                        class="logo"
+                    />
+                </a>
+
+                <nav class="navbar" data-navbar>
+                    <ul class="navbar-list">
+                        <li>
+                            <a
+                                href="./index.html"
+                                class="navbar-link label-lg link:hover"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./browse-skills.html"
+                                class="navbar-link label-lg link:hover"
+                                >Browse Skills</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./community.html"
+                                class="navbar-link label-lg link:hover"
+                                >Community</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./about-us.html"
+                                class="navbar-link label-lg link:hover"
+                                >About Us</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./contact.html"
+                                class="navbar-link label-lg link:hover"
+                                aria-current="page"
+                                >Contact</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="header-action">
+                    <button
+                        class="btn-icon primary"
+                        aria-label="Post a Task"
+                        onclick="openTaskModal()"
+                    >
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </button>
+
+                    <button
+                        class="btn-icon profil-btn"
+                        aria-label="SkillBridge account: Jane Doe"
+                    >
+                        <img
+                            src="./assets/images/profile.jpg"
+                            width="50"
+                            height="50"
+                            alt="Jane Doe"
+                            class="img-cover"
+                        />
+                    </button>
+
+                    <button
+                        class="nav-toggle-btn"
+                        aria-label="menu toggle"
+                        data-nav-toggler
+                    >
+                        <ion-icon
+                            name="menu-outline"
+                            aria-hidden="true"
+                            class="default-icon"
+                        ></ion-icon>
+                        <ion-icon
+                            name="close-outline"
+                            aria-hidden="true"
+                            class="active-icon"
+                        ></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <article>
+                <section class="section page-hero" aria-label="contact">
+                    <div class="container">
+                        <h1 class="headline-lg">Contact SkillBridge</h1>
+                        <p class="section-text body-lg">
+                            Need support, want to partner, or planning a campus
+                            chapter? Send us a note and we will get back soon.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="contact form">
+                    <div class="container">
+                        <form class="contact-wrap" id="contactForm" novalidate>
+                            <div class="contact-fields">
+                                <label class="contact-label" for="contactName"
+                                    >Your name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="contactName"
+                                    name="name"
+                                    class="contact-field"
+                                    placeholder="Your name"
+                                    required
+                                />
+                                <label class="contact-label" for="contactEmail"
+                                    >Email address</label
+                                >
+                                <input
+                                    type="email"
+                                    id="contactEmail"
+                                    name="email"
+                                    class="contact-field"
+                                    placeholder="Email address"
+                                    required
+                                />
+                                <label class="contact-label" for="contactCategory"
+                                    >Inquiry category</label
+                                >
+                                <select
+                                    id="contactCategory"
+                                    name="category"
+                                    class="contact-field"
+                                    required
+                                >
+                                    <option value="" selected disabled>
+                                        Select a category
+                                    </option>
+                                    <option value="Support">Support</option>
+                                    <option value="Partnership">
+                                        Partnership
+                                    </option>
+                                    <option value="Campus Chapter">
+                                        Campus Chapter
+                                    </option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <label class="contact-label" for="contactSubject"
+                                    >Subject</label
+                                >
+                                <input
+                                    type="text"
+                                    id="contactSubject"
+                                    name="subject"
+                                    class="contact-field"
+                                    placeholder="Subject"
+                                    required
+                                />
+                                <label class="contact-label" for="contactMessage"
+                                    >Message</label
+                                >
+                                <textarea
+                                    id="contactMessage"
+                                    name="message"
+                                    class="contact-field"
+                                    placeholder="Tell us what you need..."
+                                    rows="6"
+                                    required
+                                ></textarea>
+                                <div class="contact-honeypot" aria-hidden="true">
+                                    <label for="contactWebsite">Website</label>
+                                    <input
+                                        type="text"
+                                        id="contactWebsite"
+                                        name="website"
+                                        tabindex="-1"
+                                        autocomplete="off"
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                class="btn contact-submit"
+                                type="submit"
+                                style="margin-top: 16px"
+                            >
+                                <span data-submit-label>Send Message</span>
+                            </button>
+                            <p
+                                class="contact-status"
+                                id="contactStatus"
+                                role="status"
+                                aria-live="polite"
+                            ></p>
+                            <div class="contact-form-meta">
+                                <p>Typical response time: within 24-48 hours.</p>
+                                <p>
+                                    By sending this form, you agree that we can
+                                    use your details to reply to your inquiry.
+                                </p>
+                            </div>
+                            <p class="contact-note">
+                                Or email us directly at
+                                jacobjayenpillai@gmail.com
+                            </p>
+                        </form>
+                    </div>
+                </section>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="body-md text-center copyright">
+                        &copy; 2026 SkillBridge Idea MVP.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <a
+            href="#top"
+            class="back-to-top btn-icon"
+            aria-label="back to top"
+            data-back-top-btn
+        >
+            <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+        </a>
+
+        <div class="body-bg-shape"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <script src="./assets/js/script.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>
