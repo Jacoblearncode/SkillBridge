@@ -37,7 +37,10 @@
         <meta property="og:image" content="./assets/images/logo.svg" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="SkillBridge - Find Skills & Get Help Fast" />
+        <meta
+            name="twitter:title"
+            content="SkillBridge - Find Skills & Get Help Fast"
+        />
         <meta
             name="twitter:description"
             content="Connect with nearby skilled people to solve tasks quickly through paid gigs, swaps, rewards, or community help."
@@ -160,7 +163,7 @@
                         class="logo-small"
                     />
                     <img
-                        src="./assets/images/logo.svg"
+                        src="./assets/images/skillbridge_logoss.png"
                         width="126"
                         height="28"
                         alt="SkillBridge home"
@@ -279,14 +282,67 @@
                             skill exchanges, and real-world community help!
                         </p>
 
-                        <a
-                            href="#"
-                            class="btn"
-                            onclick="openTaskModal()"
+                        <div
+                            class="hero-actions"
                             data-reveal
                             data-reveal-delay="0.14s"
-                            >Post a Task</a
                         >
+                            <a href="#" class="btn" onclick="openTaskModal()"
+                                >Post a Task</a
+                            >
+                            <a href="./browse-skills.html" class="btn-outline"
+                                >Offer a Skill</a
+                            >
+                        </div>
+                    </div>
+                </section>
+
+                <!--
+        - #HOW IT WORKS
+      -->
+
+                <section class="section how-it-works" aria-label="how it works">
+                    <div class="container">
+                        <h2
+                            class="headline-md text-center how-it-works-title"
+                            data-reveal
+                        >
+                            How It Works
+                        </h2>
+                        <div class="how-steps">
+                            <div class="how-step" data-reveal>
+                                <div class="how-step-num">1</div>
+                                <p class="how-step-title">Post a Task</p>
+                                <p class="how-step-text">
+                                    Describe what you need, set your budget, and
+                                    choose when you need it done.
+                                </p>
+                            </div>
+                            <div
+                                class="how-step"
+                                data-reveal
+                                data-reveal-delay="0.1s"
+                            >
+                                <div class="how-step-num">2</div>
+                                <p class="how-step-title">Get Matched</p>
+                                <p class="how-step-text">
+                                    Browse nearby helpers, check ratings, and
+                                    pick the best fit for your task.
+                                </p>
+                            </div>
+                            <div
+                                class="how-step"
+                                data-reveal
+                                data-reveal-delay="0.2s"
+                            >
+                                <div class="how-step-num">3</div>
+                                <p class="how-step-title">Get It Done</p>
+                                <p class="how-step-text">
+                                    Connect instantly and get your problem
+                                    solved — usually within 15 minutes.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -301,7 +357,13 @@
                     <div class="container">
                         <ul class="stats-grid">
                             <li class="stat-card" data-reveal>
-                                <p class="stat-value">50+</p>
+                                <p
+                                    class="stat-value"
+                                    data-count-to="50"
+                                    data-count-suffix="+"
+                                >
+                                    50+
+                                </p>
                                 <p class="stat-desc">Task Categories</p>
                                 <p class="stat-sub">From errands to coding</p>
                             </li>
@@ -310,7 +372,14 @@
                                 data-reveal
                                 data-reveal-delay="0.08s"
                             >
-                                <p class="stat-value">&lt;15 min</p>
+                                <p
+                                    class="stat-value"
+                                    data-count-to="15"
+                                    data-count-prefix="&lt;"
+                                    data-count-suffix=" min"
+                                >
+                                    &lt;15 min
+                                </p>
                                 <p class="stat-desc">Avg Match Time</p>
                                 <p class="stat-sub">Real-time local matching</p>
                             </li>
@@ -319,7 +388,13 @@
                                 data-reveal
                                 data-reveal-delay="0.16s"
                             >
-                                <p class="stat-value">4 Models</p>
+                                <p
+                                    class="stat-value"
+                                    data-count-to="4"
+                                    data-count-suffix=" Models"
+                                >
+                                    4 Models
+                                </p>
                                 <p class="stat-desc">Flexible Payment</p>
                                 <p class="stat-sub">
                                     Paid · Swap · Reward · Free
@@ -330,7 +405,14 @@
                                 data-reveal
                                 data-reveal-delay="0.24s"
                             >
-                                <p class="stat-value">$556B</p>
+                                <p
+                                    class="stat-value"
+                                    data-count-to="556"
+                                    data-count-prefix="$"
+                                    data-count-suffix="B"
+                                >
+                                    $556B
+                                </p>
                                 <p class="stat-desc">Market Opportunity</p>
                                 <p class="stat-sub">
                                     Global gig economy (2032)
@@ -2241,10 +2323,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <ion-icon
-                    name="logo-whatsapp"
-                    aria-hidden="true"
-                ></ion-icon>
+                <ion-icon name="logo-whatsapp" aria-hidden="true"></ion-icon>
                 <span class="label-md">WhatsApp</span>
             </a>
             <a href="./contact.html" class="mobile-contact-link">

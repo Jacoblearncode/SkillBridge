@@ -504,10 +504,39 @@ body {
     margin-block: 16px 32px;
 }
 
-.hero .btn {
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
     margin-inline: auto;
+}
+
+.hero .btn {
     box-shadow: 0 0 0 0 hsla(262, 83%, 58%, 0.45);
     animation: heroCtaPulse 3s ease-in-out infinite;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1.5px solid var(--white_a30);
+    color: var(--white);
+    max-width: max-content;
+    font-size: var(--body-md);
+    font-weight: var(--fw-600);
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: var(--transition-1);
+    cursor: pointer;
+}
+
+.btn-outline:is(:hover, :focus-visible) {
+    border-color: var(--blue-violet);
+    background-color: var(--blue-violet_a10);
+    color: var(--white);
 }
 
 @keyframes heroCtaPulse {
@@ -1255,6 +1284,60 @@ body {
 }
 
 /*-----------------------------------*\
+  #HOW IT WORKS
+\*-----------------------------------*/
+
+.how-it-works {
+    padding-block: 40px 48px;
+}
+
+.how-it-works-title {
+    margin-block-end: 32px;
+}
+
+.how-steps {
+    display: grid;
+    gap: 16px;
+}
+
+.how-step {
+    padding: 24px 20px;
+    border-radius: var(--radius-12);
+    border: 1px solid var(--white_a16);
+    background: var(--glass-surface);
+    box-shadow: var(--shadow-glass);
+    text-align: center;
+}
+
+.how-step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--linear-gradient-2);
+    color: var(--white);
+    font-size: 1.6rem;
+    font-weight: var(--fw-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 4px 14px hsla(262, 83%, 58%, 0.35);
+}
+
+.how-step-title {
+    color: var(--white);
+    font-size: var(--title-sm);
+    font-weight: var(--fw-600);
+    margin-block-end: 8px;
+}
+
+.how-step-text {
+    color: var(--cadet-grey);
+    font-size: var(--label-lg);
+    line-height: 1.6;
+}
+
+/*-----------------------------------*\
   #STATS STRIP
 \*-----------------------------------*/
 
@@ -1690,6 +1773,10 @@ body {
         bottom: 20px;
     }
 
+    .how-steps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     .stats-grid {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -1992,4 +2079,46 @@ body {
     .hero .btn {
         animation: none;
     }
+}
+
+/*-----------------------------------*\
+  #TOAST
+\*-----------------------------------*/
+
+.sb-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(16px);
+    background: linear-gradient(
+        135deg,
+        hsla(146, 55%, 18%, 0.97),
+        hsla(146, 55%, 11%, 0.97)
+    );
+    border: 1px solid hsla(146, 56%, 50%, 0.28);
+    color: var(--white);
+    padding: 13px 20px;
+    border-radius: var(--radius-pill);
+    font-size: 1.45rem;
+    font-weight: var(--fw-500);
+    box-shadow:
+        inset 0 1px 0 hsla(0, 0%, 100%, 0.1),
+        0 8px 28px hsla(220, 60%, 4%, 0.45);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    white-space: nowrap;
+    max-width: calc(100vw - 32px);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.sb-toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
 }

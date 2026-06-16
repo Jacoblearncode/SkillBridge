@@ -49,8 +49,9 @@ const initRevealAnimations = function () {
 
   if (!revealElements.length) return;
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-    .matches;
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
   revealElements.forEach(function (element) {
     const delay = element.getAttribute("data-reveal-delay");
@@ -86,6 +87,61 @@ const initRevealAnimations = function () {
 };
 
 initRevealAnimations();
+
+/**
+ * ANIMATED STAT COUNTERS
+ * Reads data-count-to / data-count-prefix / data-count-suffix and counts
+ * up from 0 when the element scrolls into view.
+ */
+
+const initCounters = function () {
+  const counterEls = document.querySelectorAll("[data-count-to]");
+  if (!counterEls.length) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  const animateCounter = function (el) {
+    const target = parseInt(el.getAttribute("data-count-to"), 10);
+    const prefix = el.getAttribute("data-count-prefix") || "";
+    const suffix = el.getAttribute("data-count-suffix") || "";
+    const duration = 1400;
+    const startTime = performance.now();
+
+    if (reduceMotion) {
+      el.textContent = prefix + target + suffix;
+      return;
+    }
+
+    const tick = function (now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  };
+
+  const counterObserver = new IntersectionObserver(
+    function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  counterEls.forEach(function (el) {
+    counterObserver.observe(el);
+  });
+};
+
+initCounters();
 
 /**
  * SLIDER
@@ -545,6 +601,10 @@ window.helperAction = function (action) {
     if (navRow) navRow.style.display = "none";
     const counterEl = document.getElementById("helperCounter");
     if (counterEl) counterEl.textContent = "";
+
+    showToast(
+      "Connected with " + helper.name + "! Expect a reply within 15 min.",
+    );
   }
 };
 
@@ -564,6 +624,38 @@ window.submitTask = function () {
 
 // Alias so "Offer Help" cards can also open the helper carousel directly
 window.openSwipeModal = window.submitTask;
+
+/**
+ * TOAST NOTIFICATION
+ * Call showToast(message) to display a brief dismissible confirmation bar.
+ */
+
+let _toastTimer;
+
+function showToast(message) {
+  let toast = document.getElementById("sbToast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "sbToast";
+    toast.className = "sb-toast";
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
+    document.body.appendChild(toast);
+  }
+
+  toast.innerHTML =
+    '<ion-icon name="checkmark-circle-outline" style="font-size:2rem;flex-shrink:0;color:hsl(146,56%,63%)"></ion-icon>' +
+    "<span>" +
+    message +
+    "</span>";
+
+  clearTimeout(_toastTimer);
+  toast.classList.add("is-visible");
+
+  _toastTimer = setTimeout(function () {
+    toast.classList.remove("is-visible");
+  }, 4500);
+}
 
 /**
  * CONTACT FORM EMAILJS
