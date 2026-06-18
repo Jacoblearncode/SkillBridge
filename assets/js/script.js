@@ -608,7 +608,7 @@ window.helperAction = function (action) {
   }
 };
 
-window.submitTask = function () {
+function openHelperCarousel() {
   postTaskModal.classList.remove("active");
   currentHelperIndex = 0;
   passedHelpers.clear();
@@ -620,10 +620,67 @@ window.submitTask = function () {
 
   renderCurrentHelper();
   swipeModal.classList.add("active");
+}
+
+function readTaskForm() {
+  const val = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+  return {
+    title: val("taskTitle"),
+    category: val("taskCategory"),
+    type: val("taskType"),
+    when: val("taskWhen"),
+    location: val("taskLocation"),
+    desc: val("taskDesc"),
+    payType: val("taskPayType"),
+    budget: val("taskBudget"),
+  };
+}
+
+window.submitTask = async function () {
+  const tasks = window.SkillBridgeTasks;
+  const authApi = window.SkillBridgeAuth;
+
+  // If Firebase isn't wired up yet, keep the original simulation flow.
+  if (!tasks || !tasks.isReady()) {
+    openHelperCarousel();
+    return;
+  }
+
+  // Firebase is live — require a title and a signed-in user, then persist.
+  const data = readTaskForm();
+  if (!data.title) {
+    if (typeof showToast === "function")
+      showToast("Please add a task title first.");
+    const titleEl = document.getElementById("taskTitle");
+    if (titleEl) titleEl.focus();
+    return;
+  }
+
+  const user = authApi && authApi.getUser();
+  if (!user) {
+    if (typeof showToast === "function")
+      showToast("Please log in to post a task.");
+    if (authApi && authApi.isReady()) authApi.openModal("login");
+    return;
+  }
+
+  try {
+    await tasks.createTask(data, user);
+    if (typeof showToast === "function")
+      showToast("Task posted! Finding helpers nearby…");
+    openHelperCarousel();
+  } catch (err) {
+    console.error("[SkillBridge] createTask failed:", err);
+    if (typeof showToast === "function")
+      showToast("Could not post your task. Please try again.");
+  }
 };
 
-// Alias so "Offer Help" cards can also open the helper carousel directly
-window.openSwipeModal = window.submitTask;
+// Alias so "Offer Help" cards can open the helper carousel directly (no posting).
+window.openSwipeModal = openHelperCarousel;
 
 /**
  * TOAST NOTIFICATION

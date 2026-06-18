@@ -1,0 +1,41 @@
+rules_version = '2';
+
+// SkillBridge Firestore security rules.
+// Paste these into Firebase console > Firestore Database > Rules > Publish.
+//
+// Model:
+//   - Tasks are publicly readable (so anyone can browse).
+//   - Only signed-in users can create tasks; only the owner can edit/delete.
+//   - Each user can only write their own users/{uid} profile doc.
+//   - Requests can be created by signed-in users; readable by the request's
+//     helper or the related task owner.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    match /users/{uid} {
+      allow read: if true;
+      allow write: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /tasks/{taskId} {
+      allow read: if true;
+      allow create: if signedIn()
+                    && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if signedIn()
+                    && resource.data.ownerId == request.auth.uid;
+    }
+
+    match /requests/{reqId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+                    && request.resource.data.helperId == request.auth.uid;
+      allow update, delete: if signedIn()
+                    && resource.data.helperId == request.auth.uid;
+    }
+  }
+}

@@ -184,8 +184,15 @@ if (
     return searchable.includes(term);
   }
 
+  // Live tasks posted through SkillBridge (populated when Firebase is active).
+  let liveSkills = [];
+
+  function allSkills() {
+    return liveSkills.concat(skills);
+  }
+
   function filteredSkills() {
-    return skills.filter((skill) => {
+    return allSkills().filter((skill) => {
       const categoryMatch =
         activeFilter === "all" || skill.category === activeFilter;
       const textMatch = matchesSearch(skill, searchTerm);
@@ -222,6 +229,34 @@ if (
     searchTerm = event.target.value.trim().toLowerCase();
     renderSkills();
   });
+
+  // Map a Firestore task doc onto the card shape this page already renders.
+  function taskToSkill(task) {
+    return {
+      title: task.title || "Untitled task",
+      category: task.category || "Other",
+      helper: task.ownerName || "A neighbour",
+      jobs: 0,
+      rate: task.budget || task.payType || "Open offer",
+      tags: [task.payType, task.type, task.location].filter(Boolean),
+    };
+  }
+
+  // Connect to live tasks once the Firebase bridge is ready (module scripts
+  // load after this classic script, so poll briefly for the bridge).
+  let liveConnectAttempts = 0;
+  function connectLiveSkills() {
+    const tasksApi = window.SkillBridgeTasks;
+    if (tasksApi && tasksApi.isReady()) {
+      tasksApi.watchAll((tasks) => {
+        liveSkills = tasks.map(taskToSkill);
+        renderSkills();
+      });
+      return;
+    }
+    if (liveConnectAttempts++ < 20) setTimeout(connectLiveSkills, 250);
+  }
+  connectLiveSkills();
 
   renderSkills();
 }
