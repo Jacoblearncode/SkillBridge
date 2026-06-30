@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SkillBridge - Task Detail</title>
+        <meta name="robots" content="noindex" />
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <style>
+            .page-hero { --section-padding: 200px 50px 40px; text-align: center; }
+            .page-hero .section-text { color: var(--alice-blue-2); opacity: 0.86; max-width: 640px; margin: 14px auto 0; }
+
+            .task-detail-wrap {
+                max-width: 720px;
+                margin: 0 auto;
+                border: 1px solid var(--white_a16);
+                border-radius: var(--radius-12);
+                background: linear-gradient(145deg, hsla(220, 35%, 21%, 0.62), hsla(224, 43%, 14%, 0.48));
+                box-shadow: inset 0 1px 0 hsla(0,0%,100%,0.22), 0 14px 28px hsla(220,58%,5%,0.3);
+                padding: 28px;
+            }
+
+            .task-detail-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-block: 14px;
+            }
+
+            .task-chip {
+                font-size: 1.3rem;
+                color: var(--alice-blue-2);
+                background: var(--blue-violet_a10);
+                border: 1px solid hsla(262, 83%, 58%, 0.3);
+                border-radius: var(--radius-pill);
+                padding: 3px 12px;
+            }
+
+            .task-desc {
+                color: var(--alice-blue-2);
+                line-height: 1.7;
+                margin-block: 18px;
+            }
+
+            .task-divider {
+                height: 1px;
+                background: hsla(0,0%,100%,0.12);
+                margin-block: 22px;
+            }
+
+            .request-form label { display: block; margin-block-end: 14px; }
+            .request-status { min-height: 18px; font-size: 1.3rem; margin-block: 10px 4px; }
+            .request-status.is-error { color: hsl(0, 72%, 70%); }
+            .request-status.is-success { color: hsl(146, 56%, 63%); }
+
+            .task-back {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                color: var(--cadet-grey);
+                font-size: 1.4rem;
+                margin-block-end: 22px;
+                transition: color var(--transition-1);
+            }
+            .task-back:is(:hover, :focus-visible) { color: var(--white); }
+
+            .task-owner-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-block-end: 6px;
+            }
+
+            .task-owner-avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: var(--radius-circle);
+                background: var(--blue-violet);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: var(--fw-700);
+                color: var(--white);
+                font-size: 1.5rem;
+                flex-shrink: 0;
+            }
+
+            @media (min-width: 768px) { .page-hero { --section-padding: 220px 64px 48px; } }
+        </style>
+    </head>
+
+    <body id="top">
+        <header class="header" data-header>
+            <div class="container">
+                <a href="./index.html">
+                    <img src="./assets/images/logo-small.svg" width="40" height="40" alt="SkillBridge home" class="logo-small" />
+                    <img src="./assets/images/logo.svg" width="126" height="28" alt="SkillBridge home" class="logo" />
+                </a>
+                <nav class="navbar" data-navbar>
+                    <ul class="navbar-list">
+                        <li><a href="./index.html" class="navbar-link label-lg link:hover">Home</a></li>
+                        <li><a href="./browse-skills.html" class="navbar-link label-lg link:hover">Browse Skills</a></li>
+                        <li><a href="./community.html" class="navbar-link label-lg link:hover">Community</a></li>
+                        <li><a href="./about-us.html" class="navbar-link label-lg link:hover">About Us</a></li>
+                        <li><a href="./contact.html" class="navbar-link label-lg link:hover">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-action">
+                    <button class="btn-icon primary" aria-label="Post a Task" onclick="openTaskModal()">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </button>
+                    <button class="btn-icon profil-btn" aria-label="SkillBridge account: Jane Doe">
+                        <img src="./assets/images/profile.webp" width="50" height="50" alt="Jane Doe" class="img-cover" />
+                    </button>
+                    <button class="nav-toggle-btn" aria-label="menu toggle" data-nav-toggler>
+                        <ion-icon name="menu-outline" aria-hidden="true" class="default-icon"></ion-icon>
+                        <ion-icon name="close-outline" aria-hidden="true" class="active-icon"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <article>
+                <section class="section page-hero" aria-label="task detail">
+                    <div class="container">
+                        <h1 class="headline-lg" data-reveal id="taskHeadline">Task Detail</h1>
+                        <p class="section-text body-lg" data-reveal data-reveal-delay="0.08s">
+                            Review the task details below and offer your help.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" aria-label="task info">
+                    <div class="container">
+                        <a href="./browse-skills.html" class="task-back">
+                            <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+                            Back to Browse
+                        </a>
+                        <div id="taskContent" class="task-detail-wrap"></div>
+                    </div>
+                </section>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="body-md text-center copyright">&copy; 2026 SkillBridge Idea MVP.</p>
+                </div>
+            </div>
+        </footer>
+
+        <a href="#top" class="back-to-top btn-icon" aria-label="back to top" data-back-top-btn>
+            <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+        </a>
+        <div class="body-bg-shape"></div>
+
+        <script src="./assets/js/script.js"></script>
+        <script type="module" src="./assets/js/firebase-config.js"></script>
+        <script type="module" src="./assets/js/auth.js"></script>
+        <script type="module" src="./assets/js/tasks.js"></script>
+
+        <script type="module">
+            const content = document.getElementById("taskContent");
+            const headline = document.getElementById("taskHeadline");
+
+            function esc(s) {
+                return String(s || "").replace(/[&<>"]/g, c =>
+                    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+            }
+
+            function chip(label) {
+                return label ? `<span class="task-chip">${esc(label)}</span>` : "";
+            }
+
+            function renderTask(task) {
+                headline.textContent = task.title || "Task Detail";
+                const initial = (task.ownerName || "?").charAt(0).toUpperCase();
+                content.innerHTML = `
+                    <div class="task-owner-row">
+                        <div class="task-owner-avatar">${initial}</div>
+                        <div>
+                            <p style="color:var(--white);font-weight:var(--fw-600)">${esc(task.ownerName)}</p>
+                            <p style="font-size:1.3rem;color:var(--cadet-grey)">Task poster</p>
+                        </div>
+                    </div>
+
+                    <h2 class="title-lg" style="color:var(--white);margin-block:10px 4px">${esc(task.title)}</h2>
+
+                    <div class="task-detail-meta">
+                        ${chip(task.category)}
+                        ${chip(task.type)}
+                        ${chip(task.when)}
+                        ${chip(task.location)}
+                        ${chip(task.payType)}
+                        ${task.budget ? `<span class="task-chip" style="background:hsla(161,94%,30%,0.15);border-color:hsla(161,94%,30%,0.4);color:hsl(146,56%,63%)">${esc(task.budget)}</span>` : ""}
+                    </div>
+
+                    ${task.desc ? `<p class="task-desc">${esc(task.desc)}</p>` : ""}
+
+                    ${task.status === "completed" ? `
+                        <p style="color:hsl(146,56%,63%);font-weight:var(--fw-600);margin-block:18px">
+                            <ion-icon name="checkmark-circle-outline" style="vertical-align:middle;margin-right:6px"></ion-icon>
+                            This task has been completed.
+                        </p>` : `
+                    <div class="task-divider"></div>
+                    <div class="request-form">
+                        <h3 class="title-sm" style="color:var(--white);margin-block-end:14px">Offer your help</h3>
+                        <label class="sb-label" for="requestMsg">Tell them why you're a great fit</label>
+                        <textarea id="requestMsg" class="sb-input sb-textarea" placeholder="e.g. I have 3 years of experience in this area and can start immediately..."></textarea>
+                        <p class="request-status" id="requestStatus" role="status" aria-live="polite"></p>
+                        <button class="btn" style="width:100%" id="requestBtn">I can help &rarr;</button>
+                    </div>`}
+                `;
+
+                if (task.status !== "completed") {
+                    document.getElementById("requestBtn").addEventListener("click", () => handleRequest(task));
+                }
+            }
+
+            function setStatus(msg, type) {
+                const el = document.getElementById("requestStatus");
+                if (!el) return;
+                el.textContent = msg;
+                el.className = "request-status" + (type ? " is-" + type : "");
+            }
+
+            async function handleRequest(task) {
+                const auth = window.SkillBridgeAuth;
+                const tasks = window.SkillBridgeTasks;
+                const user = auth && auth.getUser();
+
+                if (!user) {
+                    if (auth && auth.isReady()) auth.openModal("login");
+                    else setStatus("Please log in to offer help.", "error");
+                    return;
+                }
+
+                if (user.uid === task.ownerId) {
+                    setStatus("You posted this task — you can't also be the helper.", "error");
+                    return;
+                }
+
+                const msg = (document.getElementById("requestMsg") || {}).value || "";
+                const btn = document.getElementById("requestBtn");
+                if (btn) btn.disabled = true;
+                setStatus("Sending your offer…", "");
+
+                try {
+                    await tasks.createRequest(task.id, task.ownerName, msg, user);
+                    setStatus("Offer sent! The task poster will be in touch soon.", "success");
+                    if (btn) btn.textContent = "Offer sent ✓";
+                } catch (err) {
+                    console.error("[SkillBridge] createRequest failed:", err);
+                    setStatus("Something went wrong. Please try again.", "error");
+                    if (btn) btn.disabled = false;
+                }
+            }
+
+            function renderDemo() {
+                renderTask({
+                    id: "demo",
+                    title: "Excel Automation & Reporting",
+                    category: "Coding & Tech",
+                    type: "Online / Remote",
+                    when: "This Week",
+                    location: "Online",
+                    payType: "Per Hour",
+                    budget: "From $14/hr",
+                    desc: "I need help fixing formulas, building pivot tables, and automating a monthly report with VBA. Beginner-friendly explanations preferred.",
+                    ownerName: "Daniel P.",
+                    ownerId: "demo",
+                    status: "open",
+                });
+            }
+
+            const taskId = new URLSearchParams(location.search).get("id");
+
+            if (!taskId) {
+                renderDemo();
+            } else {
+                // Wait briefly for Firebase modules to load.
+                let attempts = 0;
+                function tryLoad() {
+                    const tasks = window.SkillBridgeTasks;
+                    if (tasks && tasks.isReady()) {
+                        content.innerHTML = `<p style="color:var(--alice-blue-2)">Loading…</p>`;
+                        tasks.watchTask(taskId, (task) => {
+                            if (!task) {
+                                content.innerHTML = `<p style="color:var(--alice-blue-2)">Task not found.</p>`;
+                            } else {
+                                renderTask(task);
+                            }
+                        });
+                    } else if (attempts++ < 20) {
+                        setTimeout(tryLoad, 200);
+                    } else {
+                        renderDemo();
+                    }
+                }
+                tryLoad();
+            }
+        </script>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>

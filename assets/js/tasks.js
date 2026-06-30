@@ -1,39 +1,45 @@
 /**
- * TASKS
+ * TASKS (extended)
  * -----------------------------------------------------------------------------
- * Create tasks in Firestore and read them for Browse + Dashboard.
- *
- * Exposes a global bridge so non-module code (script.js) can persist a task
- * created via the existing "Post a Task" modal:
- *   window.SkillBridgeTasks = { isReady, createTask, watchAll, watchMine }
- *
- * If Firebase isn't configured, isReady() returns false and callers fall back
- * to the existing simulation.
+ * Phase 1 + Phase 2 additions:
+ *   - watchTask(taskId, cb)       single task listener for task.html
+ *   - createRequest(...)          helper "I can help" → requests/ collection
+ *   - updateTaskStatus(...)       owner marks task done on Dashboard
+ *   - addSubscriber(email)        newsletter form → subscribers/ collection
  */
 
 import { isConfigured, db, SDK } from "./firebase-config.js";
 
 window.SkillBridgeTasks = {
   isReady: () => false,
-  createTask: async () => {
-    throw new Error("Firebase not configured");
-  },
+  createTask: async () => { throw new Error("Firebase not configured"); },
   watchAll: () => () => {},
   watchMine: () => () => {},
+  watchTask: () => () => {},
+  createRequest: async () => { throw new Error("Firebase not configured"); },
+  updateTaskStatus: async () => { throw new Error("Firebase not configured"); },
+  addSubscriber: async () => { throw new Error("Firebase not configured"); },
 };
 
 if (isConfigured) {
   const {
     collection,
+    doc,
     addDoc,
+    updateDoc,
     query,
     where,
     orderBy,
     onSnapshot,
     serverTimestamp,
+    setDoc,
+    getDocs,
+    limit,
   } = await import(`${SDK}/firebase-firestore.js`);
 
   const tasksCol = collection(db, "tasks");
+  const requestsCol = collection(db, "requests");
+  const subsCol = collection(db, "subscribers");
 
   async function createTask(data, user) {
     if (!user) throw new Error("Must be signed in to post a task.");
@@ -53,7 +59,6 @@ if (isConfigured) {
     });
   }
 
-  // Live stream of all open tasks (newest first). Returns an unsubscribe fn.
   function watchAll(callback) {
     const q = query(tasksCol, orderBy("createdAt", "desc"));
     return onSnapshot(
@@ -63,7 +68,6 @@ if (isConfigured) {
     );
   }
 
-  // Live stream of tasks owned by a given user.
   function watchMine(uid, callback) {
     const q = query(
       tasksCol,
@@ -77,10 +81,50 @@ if (isConfigured) {
     );
   }
 
+  function watchTask(taskId, callback) {
+    const ref = doc(db, "tasks", taskId);
+    return onSnapshot(
+      ref,
+      (snap) => callback(snap.exists() ? { id: snap.id, ...snap.data() } : null),
+      (err) => console.warn("[SkillBridge] watchTask failed:", err),
+    );
+  }
+
+  async function createRequest(taskId, taskOwnerName, message, user) {
+    if (!user) throw new Error("Must be signed in to offer help.");
+    return addDoc(requestsCol, {
+      taskId,
+      taskOwnerName: taskOwnerName || "",
+      helperId: user.uid,
+      helperName: user.displayName || user.email || "A helper",
+      message: message || "",
+      status: "pending",
+      createdAt: serverTimestamp(),
+    });
+  }
+
+  async function updateTaskStatus(taskId, status, user) {
+    if (!user) throw new Error("Must be signed in.");
+    const ref = doc(db, "tasks", taskId);
+    return updateDoc(ref, { status, updatedAt: serverTimestamp() });
+  }
+
+  async function addSubscriber(email) {
+    const emailLower = (email || "").trim().toLowerCase();
+    if (!emailLower) throw new Error("Email required.");
+    // Use email as doc ID to naturally deduplicate.
+    const ref = doc(subsCol, emailLower.replace(/[.#$/[\]]/g, "_"));
+    return setDoc(ref, { email: emailLower, subscribedAt: serverTimestamp() }, { merge: true });
+  }
+
   window.SkillBridgeTasks = {
     isReady: () => true,
     createTask,
     watchAll,
     watchMine,
+    watchTask,
+    createRequest,
+    updateTaskStatus,
+    addSubscriber,
   };
 }

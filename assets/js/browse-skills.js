@@ -153,20 +153,101 @@ if (
   let activeFilter = "all";
   let searchTerm = "";
 
+  function esc(s) {
+    return String(s || "").replace(/[&<>"]/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  }
+
   function skillCardTemplate(skill) {
     const tagsMarkup = skill.tags
-      .map((tag) => `<span class="skill-tag">${tag}</span>`)
+      .filter(Boolean)
+      .map((tag) => `<span class="skill-tag">${esc(tag)}</span>`)
       .join("");
+
+    // Live Firestore tasks link to the detail page; seed cards open profile modal.
+    const action = skill.taskId
+      ? `<a href="./task.html?id=${esc(skill.taskId)}" class="btn">View Task</a>`
+      : `<button class="btn" data-profile-btn data-helper="${esc(skill.helper)}"
+           data-title="${esc(skill.title)}" data-rate="${esc(skill.rate)}"
+           data-tags="${esc(skill.tags.filter(Boolean).join(", "))}"
+           data-jobs="${esc(String(skill.jobs))}">See Profile</button>`;
 
     return `
     <article class="skill-card">
-      <h2 class="title-sm">${skill.title}</h2>
-      <p class="skill-meta">${skill.helper} • ${skill.jobs} jobs completed • ${skill.rate}</p>
+      <h2 class="title-sm">${esc(skill.title)}</h2>
+      <p class="skill-meta">${esc(skill.helper)}${skill.jobs ? " • " + skill.jobs + " jobs completed" : ""} • ${esc(skill.rate)}</p>
       <div class="skill-tags">${tagsMarkup}</div>
-      <a href="./contact.html" class="btn">Request Help</a>
+      ${action}
     </article>
   `;
   }
+
+  // Helper profile modal (for hardcoded seed cards)
+  function buildProfileModal() {
+    if (document.getElementById("profileModal")) return;
+    const wrap = document.createElement("div");
+    wrap.innerHTML = `
+      <div class="modal-overlay" id="profileModal" role="dialog" aria-modal="true" aria-label="Helper profile">
+        <div class="sb-modal" style="max-width:420px">
+          <button class="sb-modal-close" aria-label="Close" id="profileClose">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+          <div id="profileBody"></div>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+    document.getElementById("profileClose").addEventListener("click", closeProfileModal);
+    document.getElementById("profileModal").addEventListener("click", (e) => {
+      if (e.target === document.getElementById("profileModal")) closeProfileModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeProfileModal();
+    });
+  }
+
+  function closeProfileModal() {
+    const m = document.getElementById("profileModal");
+    if (m) m.classList.remove("active");
+  }
+
+  function openProfileModal(data) {
+    buildProfileModal();
+    const initial = (data.helper || "?").charAt(0).toUpperCase();
+    document.getElementById("profileBody").innerHTML = `
+      <div style="text-align:center;margin-block-end:18px">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--blue-violet);
+          display:flex;align-items:center;justify-content:center;margin:0 auto 10px;
+          font-size:2.8rem;font-weight:700;color:var(--white)">${initial}</div>
+        <h2 class="title-lg" style="color:var(--white)">${esc(data.helper)}</h2>
+        <p style="color:var(--cadet-grey);font-size:1.4rem">${esc(data.title)}</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-block-end:18px">
+        ${data.tags.split(",").map(t => t.trim()).filter(Boolean)
+          .map(t => `<span class="skill-tag">${esc(t)}</span>`).join("")}
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;
+        padding:12px;border-radius:var(--radius-8);background:var(--blue-violet_a10);
+        border:1px solid hsla(262,83%,58%,0.3);margin-block-end:18px">
+        <span style="color:var(--alice-blue-2);font-size:1.4rem">${data.jobs} jobs completed</span>
+        <span style="color:hsl(146,56%,63%);font-weight:600;font-size:1.4rem">${esc(data.rate)}</span>
+      </div>
+      <a href="./contact.html" class="btn" style="width:100%;text-align:center">Hire via Contact</a>
+    `;
+    document.getElementById("profileModal").classList.add("active");
+  }
+
+  // Delegate profile button clicks on the skill grid
+  grid.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-profile-btn]");
+    if (!btn) return;
+    openProfileModal({
+      helper: btn.dataset.helper,
+      title: btn.dataset.title,
+      rate: btn.dataset.rate,
+      tags: btn.dataset.tags,
+      jobs: btn.dataset.jobs,
+    });
+  });
 
   function matchesSearch(skill, term) {
     if (!term) return true;
@@ -233,6 +314,7 @@ if (
   // Map a Firestore task doc onto the card shape this page already renders.
   function taskToSkill(task) {
     return {
+      taskId: task.id,
       title: task.title || "Untitled task",
       category: task.category || "Other",
       helper: task.ownerName || "A neighbour",

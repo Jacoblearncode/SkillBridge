@@ -80,7 +80,12 @@
                 border: 1px solid hsla(262, 83%, 58%, 0.4);
                 border-radius: var(--radius-pill);
                 padding: 2px 12px;
-                margin-block-start: 12px;
+            }
+
+            .dash-status--done {
+                background: hsla(161, 94%, 30%, 0.12);
+                border-color: hsla(161, 94%, 30%, 0.4);
+                color: hsl(146, 56%, 63%);
             }
 
             .dash-empty {
@@ -180,7 +185,7 @@
                         aria-label="SkillBridge account: Jane Doe"
                     >
                         <img
-                            src="./assets/images/profile.jpg"
+                            src="./assets/images/profile.webp"
                             width="50"
                             height="50"
                             alt="Jane Doe"
@@ -280,13 +285,20 @@
                 );
             }
 
+            let currentUser = null;
+
             function card(t) {
+                const isDone = t.status === "completed";
                 return `
                 <article class="dash-card">
                     <h3 class="title-sm">${esc(t.title)}</h3>
                     <p class="dash-meta">${esc(t.category)} &middot; ${esc(t.budget) || "—"}${t.location ? " &middot; " + esc(t.location) : ""}</p>
-                    <p>${esc(t.desc)}</p>
-                    <span class="dash-status">${esc(t.status || "open")}</span>
+                    ${t.desc ? `<p>${esc(t.desc)}</p>` : ""}
+                    <div style="display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap">
+                        <span class="dash-status${isDone ? " dash-status--done" : ""}">${isDone ? "completed" : "open"}</span>
+                        <a href="./task.html?id=${esc(t.id)}" class="btn-outline" style="font-size:1.3rem;padding:4px 12px">View</a>
+                        ${!isDone ? `<button class="btn-outline dash-done-btn" style="font-size:1.3rem;padding:4px 12px" data-task-id="${esc(t.id)}">Mark done</button>` : ""}
+                    </div>
                 </article>`;
             }
 
@@ -301,6 +313,22 @@
                 state.innerHTML = "";
                 grid.innerHTML = tasks.map(card).join("");
             }
+
+            grid.addEventListener("click", async (e) => {
+                const btn = e.target.closest(".dash-done-btn");
+                if (!btn || !currentUser) return;
+                const taskId = btn.dataset.taskId;
+                if (!taskId) return;
+                btn.disabled = true;
+                btn.textContent = "Updating…";
+                try {
+                    await window.SkillBridgeTasks.updateTaskStatus(taskId, "completed", currentUser);
+                } catch (err) {
+                    console.error("[SkillBridge] updateTaskStatus failed:", err);
+                    btn.disabled = false;
+                    btn.textContent = "Mark done";
+                }
+            });
 
             function showLoggedOut() {
                 grid.innerHTML = "";
@@ -329,6 +357,7 @@
                     showLoggedOut();
                     return;
                 }
+                currentUser = user;
                 state.innerHTML = "<p>Loading your tasks…</p>";
                 unsub = window.SkillBridgeTasks.watchMine(user.uid, render);
             }

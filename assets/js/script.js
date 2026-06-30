@@ -269,7 +269,7 @@ let postTaskModal, swipeModal;
 const helpers = [
   {
     name: "John D.",
-    img: "avatar-1.jpg",
+    img: "avatar-1.webp",
     skill: "Excel & Spreadsheet Expert",
     category: "Coding",
     rate: "$15/hr or Skill Swap",
@@ -281,7 +281,7 @@ const helpers = [
   },
   {
     name: "Sarah M.",
-    img: "avatar-2.jpg",
+    img: "avatar-2.webp",
     skill: "Graphic Designer",
     category: "Design",
     rate: "$18/hr",
@@ -293,7 +293,7 @@ const helpers = [
   },
   {
     name: "Mike R.",
-    img: "avatar-3.jpg",
+    img: "avatar-3.webp",
     skill: "Math & Science Tutor",
     category: "Tutoring",
     rate: "Free Community Help",
@@ -305,7 +305,7 @@ const helpers = [
   },
   {
     name: "Emma L.",
-    img: "avatar-4.jpg",
+    img: "avatar-4.webp",
     skill: "Short-form Video Editor",
     category: "Video Editing",
     rate: "$20/hr",
@@ -317,7 +317,7 @@ const helpers = [
   },
   {
     name: "Raj P.",
-    img: "avatar-5.jpg",
+    img: "avatar-5.webp",
     skill: "Pet Walker & Sitter",
     category: "Pet Care",
     rate: "$12/hr",
@@ -329,7 +329,7 @@ const helpers = [
   },
   {
     name: "Lina H.",
-    img: "avatar-7.jpg",
+    img: "avatar-7.webp",
     skill: "Errand Runner & Queue Agent",
     category: "Errands",
     rate: "From $10/task",
@@ -341,7 +341,7 @@ const helpers = [
   },
   {
     name: "Carlos M.",
-    img: "avatar-8.jpg",
+    img: "avatar-8.webp",
     skill: "Event & Product Photographer",
     category: "Photography",
     rate: "From $25/hr",
@@ -353,7 +353,7 @@ const helpers = [
   },
   {
     name: "Nyla T.",
-    img: "avatar-3.jpg",
+    img: "avatar-3.webp",
     skill: "Resume & Career Coach",
     category: "Career Help",
     rate: "Skill Swap or $16/hr",
